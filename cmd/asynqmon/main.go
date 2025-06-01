@@ -108,6 +108,8 @@ func makeRedisConnOpt(cfg *Config) (asynq.RedisConnOpt, error) {
 			return nil, err
 		}
 		connOpt := res.(asynq.RedisFailoverClientOpt) // safe to type-assert
+		connOpt.Password = cfg.RedisPassword
+		connOpt.DB = cfg.RedisDB
 		connOpt.TLSConfig = makeTLSConfig(cfg)
 		return connOpt, nil
 	}
